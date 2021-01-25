@@ -65,7 +65,7 @@ class Payments:
         self.ExpirationDate = ExpirationDate
         self.Amount = Amount
         self.SecurityCode = SecurityCode
-        self.checkExpensiveService = True
+        self.checkExpensiveService = False
         self.cheap_payment_try = 0
         self.premium_payment_try = 0
         self.CheckAmountAndProceedWithPayment()
@@ -108,6 +108,16 @@ class Payments:
 
 @server.route('/proceed-payment/', methods=['POST'])
 def proceed_payment():
+    """
+        Request Body: 
+        {
+            "CreditCardNumber": "3429392993838",
+            "CardHolder": "demo",
+            "ExpirationDate": "02/2025",
+            "SecurityCode": "231",
+            "Amount": 59
+        }
+    """
     def typecast(requested_data):
         for key in Constants.StringType.value:
             if requested_data.get(key) and isinstance(requested_data[key],str):
